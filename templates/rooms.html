@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Room Status</title>
+    <title>Rooms</nobr></title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h2>Room List</h2>
+<div class="container">
+    <div class="navbar">
+        <div><strong>🏨 Hotel Manager</strong></div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('rooms') }}">Rooms</a>
+            <a href="{{ url_for('view_bookings') }}">Bookings</a>
+            <a href="{{ url_for('manage_rooms') }}">Manage Rooms</a>
+            <a href="{{ url_for('book') }}">Book Room</a>
+        </div>
+    </div>
+    <h2>Room Availability</h2>
 
-    <form method="get" action="/rooms">
-        <select name="status">
-            <option value="">All</option>
-            <option value="occupied">Occupied</option>
-            <option value="vacant">Vacant</option>
-        </select>
-        <button type="submit">Filter</button>
-    </form>
 
-    <table border="1">
-        <tr>
-            <th>Room</th>
-            <th>Guest</th>
-            <th>Status</th>
-            <th>Check-in</th>
-            <th>Check-out</th>
-            <th>Action</th>
-        </tr>
-        {% for room in rooms %}
-        <tr>
-            <td>{{ room.room_number }}</td>
-            <td>{{ room.guest_name }}</td>
-            <td>{{ room.status }}</td>
-            <td>{{ room.check_in }}</td>
-            <td>{{ room.check_out or '-' }}</td>
-            <td>
-                {% if room.status == "occupied" %}
-                    <a href="{{ url_for('checkout_screen', occupant_id=room.id) }}">Check Out</a>
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
+    <div class="filters">
+        <form method="GET" action="/rooms">
+            Date: <input type="date" name="date" value="{{ filter_date }}">
+            Type: <select name="room_type">
+                <option value="">All</option>
+                {% for t in types %}
+                <option value="{{ t }}" {% if t==selected_type %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+            Status: <select name="status">
+                <option value="">All</option>
+                <option value="vacant" {% if selected_status=='vacant' %}selected{% endif %}>Vacant</option>
+                <option value="booked" {% if selected_status=='booked' %}selected{% endif %}>Booked</option>
+                <option value="occupied" {% if selected_status=='occupied' %}selected{% endif %}>Occupied</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <div class="grid">
+        {% for item in room_status %}
+        <div class="room-card {{ item.status }}">
+            <h3>{{ item.room.room_number }}</h3>
+            <p>{{ item.room.room_type }}</p>
+            <p>{{ item.status|capitalize }}</p>
+            {% if item.status == 'booked' %}
+            <a href="/checkin/{{ item.booking_id }}">Check In</a>
+            {% elif item.status == 'occupied' %}
+            <a href="/checkout/{{ item.booking_id }}">Check Out</a>
+            {% endif %}
+        </div>
         {% endfor %}
-    </table>
-
-    <a href="/">Back to Check-In</a>
+    </div>
+</div>
 </body>
 </html>

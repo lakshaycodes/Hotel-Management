@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Check Out</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Edit Room</title>
 </head>
 <body>
     <div class="navbar">
@@ -15,14 +14,12 @@
             <a href="{{ url_for('book') }}">Book Room</a>
         </div>
     </div>
-<div class="container">
-    <h2>Check-Out</h2>
-    <p>Guest: {{ booking.guest_name }}</p>
-    <p>Room: {{ booking.room.room_number }}</p>
-    <form method="POST">
-        <button type="submit">Confirm Check-Out</button>
+    <h2>Edit Room {{ room.room_number }}</h2>
+    <form method="post">
+        <label>Room Number:</label><input name="room_number" value="{{ room.room_number }}"><br>
+        <label>Room Type:</label><input name="room_type" value="{{ room.room_type }}"><br>
+        <button type="submit">Update</button>
     </form>
-    <a href="/rooms">Cancel</a>
-</div>
+    <a href="{{ url_for('manage_rooms') }}">⬅️ Back</a>
 </body>
 </html>

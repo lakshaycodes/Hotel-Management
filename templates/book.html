@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Check Out</title>
+    <title>Book Room</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<div class="container">
     <div class="navbar">
         <div><strong>🏨 Hotel Manager</strong></div>
         <div>
@@ -15,14 +16,19 @@
             <a href="{{ url_for('book') }}">Book Room</a>
         </div>
     </div>
-<div class="container">
-    <h2>Check-Out</h2>
-    <p>Guest: {{ booking.guest_name }}</p>
-    <p>Room: {{ booking.room.room_number }}</p>
+    <h2>Book a Room</h2>
     <form method="POST">
-        <button type="submit">Confirm Check-Out</button>
+        Name: <input type="text" name="guest_name" required><br>
+        Room: <select name="room_id">
+            {% for r in rooms %}
+            <option value="{{ r.id }}">{{ r.room_number }} ({{ r.room_type }})</option>
+            {% endfor %}
+        </select><br>
+        Check-in: <input type="date" name="check_in" required><br>
+        Check-out: <input type="date" name="check_out" required><br>
+        <button type="submit">Book</button>
     </form>
-    <a href="/rooms">Cancel</a>
+    <a href="/">Home</a>
 </div>
 </body>
 </html>

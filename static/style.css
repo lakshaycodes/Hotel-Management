@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f9f9f9;
+}
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #333;
+}
+.filters {
+    margin-bottom: 20px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+.room-card {
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+.occupied { background: #e74c3c; }
+.vacant   { background: #2ecc71; }
+.booked   { background: #f39c12; }
+
+body { font-family: sans-serif; padding: 20px; margin: 0; }
+.navbar {
+    background: #333;
+    padding: 10px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+}
+.navbar a:hover {
+    text-decoration: underline;
+}
+.container {
+    margin-top: 20px;
+}
