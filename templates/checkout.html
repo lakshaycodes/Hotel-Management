@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check-Out</title>
+</head>
+<body>
+    <h2>Check-Out Guest</h2>
+    <p>Guest: {{ guest.guest_name }}</p>
+    <p>Room: {{ guest.room_number }}</p>
+    <form method="POST">
+        <button type="submit">Confirm Check-Out</button>
+    </form>
+    <a href="/rooms">Cancel</a>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room Status</title>
+</head>
+<body>
+    <h2>Room List</h2>
+
+    <form method="get" action="/rooms">
+        <select name="status">
+            <option value="">All</option>
+            <option value="occupied">Occupied</option>
+            <option value="vacant">Vacant</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Room</th>
+            <th>Guest</th>
+            <th>Status</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Action</th>
+        </tr>
+        {% for room in rooms %}
+        <tr>
+            <td>{{ room.room_number }}</td>
+            <td>{{ room.guest_name }}</td>
+            <td>{{ room.status }}</td>
+            <td>{{ room.check_in }}</td>
+            <td>{{ room.check_out or '-' }}</td>
+            <td>
+                {% if room.status == "occupied" %}
+                    <a href="{{ url_for('checkout_screen', occupant_id=room.id) }}">Check Out</a>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/">Back to Check-In</a>
+</body>
+</html>
